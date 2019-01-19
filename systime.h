@@ -59,7 +59,7 @@ extern "C" {
     See https://www.romanblack.com/one_sec.htm
 */
 
-#include <stdint-h>
+#include <stdint.h>
 
 typedef struct systime3_s
 {
