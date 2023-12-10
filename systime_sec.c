@@ -51,4 +51,17 @@ unsigned systime_sec(void)
     return systime_curr_sec;
 }
 
+// set current seconds
+void systime_sec_set(unsigned current_time)
+{
+    unsigned now = systime_sec();
 
+    if(now > current_time)
+    {
+        systime_curr_sec -= (now - current_time);
+    }
+    else
+    {
+        systime_curr_sec += (current_time - now);
+    }
+}

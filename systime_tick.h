@@ -97,7 +97,8 @@ unsigned systime_ms(void);
 // returns current value of seconds free running counter
 unsigned systime_sec(void);
 
-
+// set current seconds
+void systime_sec_set(unsigned current_time);
 
 // number of elapsed ticks since start
 #define systime_tick_elapsed(start) (_systime_tick() - (start))
