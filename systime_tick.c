@@ -1,6 +1,5 @@
 // systime_tick.c
 
-//#include <systime_tick.h>
 #include "systime_tick.h"
 
 
@@ -27,9 +26,10 @@
 */
 
 
+static unsigned systime_tick_internal(void);
 
 static unsigned (*systickshw)(void);
-static char      use_hw_systicks;
+static unsigned (*systime_tick_current)(void) = &systime_tick_internal;
 
 static unsigned last_timer_ticks;
 unsigned __systime_curr_ticks;
@@ -37,22 +37,13 @@ static unsigned mask;
 static unsigned tickmult;
 
 
-// returns current system time internal tick count
-// it have period of full unsigned int
+
+
+// returns current system time internal tick count.
+// it has period of full unsigned int.
 unsigned _systime_tick(void)
 {
-    if(use_hw_systicks)
-    {
-        __systime_curr_ticks = systickshw();
-    }
-    else
-    {
-        unsigned now = systickshw();
-        unsigned diff = (now - last_timer_ticks) & mask;
-        __systime_curr_ticks += diff * tickmult;
-        last_timer_ticks = now;
-    }
-    return __systime_curr_ticks;
+    return systime_tick_current();
 }
 
 
@@ -84,16 +75,28 @@ unsigned _systime_tick(void)
 void _systime_tick_init(unsigned (*fcn)(void), unsigned hw_bits, unsigned tick_multiplier)
 {
     // if timer state is wide as unsigned we can directly call systickshw() instead of _systime_tick()
-    if(hw_bits == 8 * sizeof(unsigned) && tick_multiplier == 1) use_hw_systicks = 1;
+    if(hw_bits == 8 * sizeof(unsigned) && tick_multiplier == 1)
+	{
+		systime_tick_current = fcn;
+	}
     else
     {
-        use_hw_systicks = 0;
+		systime_tick_current = &systime_tick_internal;
+		tickmult = tick_multiplier;
+		systickshw = fcn;
         mask = (1UL << hw_bits) - 1;
     }
-    tickmult = tick_multiplier;
-
-    systickshw = fcn;
-
+    
     _systime_tick();
 }
 
+
+
+static unsigned systime_tick_internal(void)
+{
+	unsigned now = systickshw();
+	unsigned diff = (now - last_timer_ticks) & mask;
+	__systime_curr_ticks += diff * tickmult;
+	last_timer_ticks = now;
+	return __systime_curr_ticks;
+}

@@ -1,6 +1,5 @@
 // systime_sec.c
 
-//#include <systime_tick.h>
 #include "systime_tick.h"
 
 // define this if you have integer divide instruction
@@ -42,7 +41,6 @@ unsigned _systime_sec(void)
     __systime_curr_sec += diff;
     last_ms += diff * 1000;
 #else
-    // we are using more while loops to have fewer iterations
     while((_systime_ms() - last_ms) >= 1000)
 	{
 		last_ms += 1000;

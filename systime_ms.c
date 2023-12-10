@@ -1,6 +1,5 @@
 // systime_ms.c
 
-//#include <systime_tick.h>
 #include "systime_tick.h"
 
 // define this if you have integer divide instruction
@@ -32,7 +31,8 @@
 
 
 static unsigned last_systime_ticks;
-static unsigned ticks1ms;
+// we are dividing by ticks1ms so it must not be 0
+static unsigned ticks1ms = 10000;
 #if !defined(SYSTEM_TIME_HAVE_DIV_INST)
 static unsigned ticks50ms;
 #endif // SYSTEM_TIME_HAVE_DIV_INST

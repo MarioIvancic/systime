@@ -27,7 +27,9 @@
 #ifndef __SYSTIME_TICK_H__
 #define __SYSTIME_TICK_H__
 
-#ifdef _cplusplus
+//#include <libc_version.h>
+
+#ifdef __cplusplus
 extern "C" {
 #endif // _cplusplus
 
@@ -119,7 +121,7 @@ unsigned _systime_sec(void);
 
 
 
-#ifdef _cplusplus
+#ifdef __cplusplus
 }
 #endif // _cplusplus
 
