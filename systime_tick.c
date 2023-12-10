@@ -76,14 +76,14 @@ void systime_tick_init(unsigned (*fcn)(void), unsigned hw_bits, unsigned tick_mu
 {
     // if timer state is wide as unsigned we can directly call systickshw() instead of systime_tick()
     if(hw_bits == 8 * sizeof(unsigned) && tick_multiplier == 1)
-	{
-		systime_tick_current = fcn;
-	}
+    {
+        systime_tick_current = fcn;
+    }
     else
     {
-		systime_tick_current = &systime_tick_internal;
-		tickmult = tick_multiplier;
-		systickshw = fcn;
+        systime_tick_current = &systime_tick_internal;
+        tickmult = tick_multiplier;
+        systickshw = fcn;
         mask = (1UL << hw_bits) - 1;
     }
     
@@ -94,9 +94,9 @@ void systime_tick_init(unsigned (*fcn)(void), unsigned hw_bits, unsigned tick_mu
 
 static unsigned systime_tick_internal(void)
 {
-	unsigned now = systickshw();
-	unsigned diff = (now - last_timer_ticks) & mask;
-	systime_curr_ticks += diff * tickmult;
-	last_timer_ticks = now;
-	return systime_curr_ticks;
+    unsigned now = systickshw();
+    unsigned diff = (now - last_timer_ticks) & mask;
+    systime_curr_ticks += diff * tickmult;
+    last_timer_ticks = now;
+    return systime_curr_ticks;
 }

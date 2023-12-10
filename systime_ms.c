@@ -50,15 +50,15 @@ unsigned systime_ms(void)
 #else
     // we are using more while loops to have fewer iterations
     while((now - lastsystime_ticks) > ticks50ms)
-	{
-		lastsystime_ticks += ticks50ms;
-		systime_curr_ms += 50;
-	}
+    {
+        lastsystime_ticks += ticks50ms;
+        systime_curr_ms += 50;
+    }
     while((now - lastsystime_ticks) > ticks1ms)
-	{
-		lastsystime_ticks += ticks1ms;
-		systime_curr_ms++;
-	}
+    {
+        lastsystime_ticks += ticks1ms;
+        systime_curr_ms++;
+    }
 #endif  // SYSTEM_TIME_HAVE_DIV_INST
 
     return systime_curr_ms;

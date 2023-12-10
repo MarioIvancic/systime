@@ -42,10 +42,10 @@ unsigned systime_sec(void)
     last_ms += diff * 1000;
 #else
     while((systime_ms() - last_ms) >= 1000)
-	{
-		last_ms += 1000;
-		systime_curr_sec++;
-	}
+    {
+        last_ms += 1000;
+        systime_curr_sec++;
+    }
 #endif  // SYSTEM_TIME_HAVE_DIV_INST
 
     return systime_curr_sec;

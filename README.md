@@ -1,6 +1,6 @@
 # System time tick
 
-The systime library is infrastructure for time measurement on small embedded systems.Systime must have access to some time source. It can be free running timer or variable incremented in periodic interrupt.
+The systime library is infrastructure for time measurement on small embedded systems. Systime must have access to some time source. It can be free running timer or a variable incremented in periodic interrupt.
 
 ### Implemented functions
 
@@ -13,16 +13,6 @@ unsigned systime_ms(void);
 unsigned systime_sec(void);
 ```
 
-### Implemented macros
-```
-systime_tick_elapsed(start)
-systime_tick_expired(start, interval)
-systime_ms_elapsed(start)
-systime_ms_expired(start, interval)
-systime_sec_elapsed(start)
-systime_sec_expired(start, interval)
-```
-
 Function `systime_tick()` returns state of hardware timer widened to unsigned. This function measure time in units of internal timer ticks. This function have finest time resolution.
 
 Function `systime_ms()` return current value of milliseconds free running counter.
@@ -33,6 +23,19 @@ Note: it is important to call some of systime time functions (systime_tick(), sy
 
 Note: If tick_multiplier is not 1 there will be some error in miliseconds, but we use Bresenham's Algorithm so average error will be 0.
 See https://www.romanblack.com/one_sec.htm
+
+### Implemented macros
+```
+systime_tick_elapsed(start)
+systime_tick_expired(start, interval)
+systime_ms_elapsed(start)
+systime_ms_expired(start, interval)
+systime_sec_elapsed(start)
+systime_sec_expired(start, interval)
+```
+
+Macros are used to get number of elapsed ticks/ms/s from some referent (start) time, or to test if some interval of ticks/ms/s is elapsed from some referent (start) time.
+
 
 ### Example use
 

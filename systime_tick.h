@@ -31,9 +31,9 @@
 extern "C" {
 #endif // _cplusplus
 
-extern unsigned __systime_curr_ticks;
-extern unsigned __systime_curr_ms;
-extern unsigned __systime_curr_sec;
+extern unsigned systime_curr_ticks;
+extern unsigned systime_curr_ms;
+extern unsigned systime_curr_sec;
 
 
 
@@ -47,13 +47,13 @@ extern unsigned __systime_curr_sec;
     tick_multiplier is number of internal ticks that is added to state for every timer tick.
 
     Example: timer clock is 1MHz, timer register is 16 bits and unsigned is 32 bits
-    _systime_tick_init(timer_read, 16, 1):
+    systime_tick_init(timer_read, 16, 1):
 
     Example: timer clock is 10MHz, timer register is 32 bits and unsigned is 32 bits
-    _systime_tick_init(timer_read, 32, 1):
+    systime_tick_init(timer_read, 32, 1):
 
     Example: timer clock is 11.0592MHz, timer register is 16 bits and unsigned is 32 bits
-    _systime_tick_init(timer_read, 16, 10):
+    systime_tick_init(timer_read, 16, 10):
 
     If tick_multiplier is not 1 there will be some error in miliseconds, but we use
     Bresenham's Algorithm so average error will be 0.
