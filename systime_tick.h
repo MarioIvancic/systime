@@ -5,17 +5,17 @@
     Systime must have access to some time source. It can be free running timer or
     variable incremented in periodic interrupt.
 
-    Three key functions in systime are _systime_tick(), _systime_ms() and _systime_sec().
+    Three key functions in systime are systime_tick(), systime_ms() and systime_sec().
 
-    Function _systime_tick() returns state of hardware timer widened to unsigned. This function
+    Function systime_tick() returns state of hardware timer widened to unsigned. This function
     measure time in units of internal timer ticks. This function have finest time resolution.
 
-    Function _systime_ms() return current value of miliseconds free running counter.
+    Function systime_ms() return current value of miliseconds free running counter.
 
-    Function _systime_sec() return current value of seconds free running counter.
+    Function systime_sec() return current value of seconds free running counter.
 
-    Note: it is important to call some of systime time functions (_systime_tick(), _systime_ms(),
-    _systime_sec()) at least once in timer full period. Otherwise, systime will lose some time.
+    Note: it is important to call some of systime time functions (systime_tick(), systime_ms(),
+    systime_sec()) at least once in timer full period. Otherwise, systime will lose some time.
 
     Note: If tick_multiplier is not 1 there will be some error in miliseconds, but we use
     Bresenham's Algorithm so average error will be 0.
@@ -101,22 +101,22 @@ unsigned systime_sec(void);
 void systime_sec_set(unsigned current_time);
 
 // number of elapsed ticks since start
-#define systime_tick_elapsed(start) (_systime_tick() - (start))
+#define systime_tick_elapsed(start) (systime_tick() - (start))
 
 // true if elapsend >= interval ticks since start
-#define systime_tick_expired(start, interval) ( (_systime_tick() - (start) ) >= (interval) )
+#define systime_tick_expired(start, interval) ( (systime_tick() - (start) ) >= (interval) )
 
 // number of elapsed ms since start
-#define systime_ms_elapsed(start) (_systime_ms() - (start))
+#define systime_ms_elapsed(start) (systime_ms() - (start))
 
 // true if elapsend >= interval ms since start
-#define systime_ms_expired(start, interval) ( (_systime_ms() - (start) ) >= (interval) )
+#define systime_ms_expired(start, interval) ( (systime_ms() - (start) ) >= (interval) )
 
 // number of elapsed seconds since start
-#define systime_sec_elapsed(start) (_systime_sec() - (start))
+#define systime_sec_elapsed(start) (systime_sec() - (start))
 
 // true if elapsend >= interval seconds since start
-#define systime_sec_expired(start, interval) ( (_systime_sec() - (start) ) >= (interval) )
+#define systime_sec_expired(start, interval) ( (systime_sec() - (start) ) >= (interval) )
 
 
 
