@@ -72,7 +72,7 @@ unsigned systime_tick(void);
 
     ticks_for_1ms is number of internal ticks ( result of systime_tick() ) for 1 milisecond.
 
-    Example: timer clock is 1MHz, timer register is 16 bits and unsigned is 32 bits
+    Example: timer clock is 1kHz, timer register is 16 bits and unsigned is 32 bits
     systime_tick_init(timer_read, 16, 1):
     systime_time_init(1);
 
@@ -103,19 +103,19 @@ void systime_sec_set(unsigned current_time);
 // number of elapsed ticks since start
 #define systime_tick_elapsed(start) (systime_tick() - (start))
 
-// true if elapsend >= interval ticks since start
+// true if elapsed >= interval ticks since start
 #define systime_tick_expired(start, interval) ( (systime_tick() - (start) ) >= (interval) )
 
 // number of elapsed ms since start
 #define systime_ms_elapsed(start) (systime_ms() - (start))
 
-// true if elapsend >= interval ms since start
+// true if elapsed >= interval ms since start
 #define systime_ms_expired(start, interval) ( (systime_ms() - (start) ) >= (interval) )
 
 // number of elapsed seconds since start
 #define systime_sec_elapsed(start) (systime_sec() - (start))
 
-// true if elapsend >= interval seconds since start
+// true if elapsed >= interval seconds since start
 #define systime_sec_expired(start, interval) ( (systime_sec() - (start) ) >= (interval) )
 
 
